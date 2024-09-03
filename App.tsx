@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -21,30 +21,40 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // Custom Tab Bar Icons
-const CustomTabIcon = ({route, color, size}) => {
+const CustomTabIcon = ({route, focused}) => {
   let iconName;
 
   switch (route.name) {
     case 'Home':
-      iconName = 'home-outline';
+      iconName = focused
+        ? require('./static/icons/home_active.png')
+        : require('./static/icons/home.png');
       break;
     case 'HospitalInfo':
-      iconName = 'information-circle-outline';
+      iconName = focused
+        ? require('./static/icons/hospital_active.png')
+        : require('./static/icons/hospital.png');
       break;
     case 'Grafting':
-      iconName = 'cut-outline'; // Reverted to the cut-outline icon
+      iconName = focused
+        ? require('./static/icons/grafting_active.png')
+        : require('./static/icons/grafting.png');
       break;
     case 'Community':
-      iconName = 'chatbubbles-outline';
+      iconName = focused
+        ? require('./static/icons/community_active.png')
+        : require('./static/icons/community.png');
       break;
     case 'MyPage':
-      iconName = 'person-outline';
+      iconName = focused
+        ? require('./static/icons/profile_active.png')
+        : require('./static/icons/profile.png');
       break;
     default:
       break;
   }
 
-  return <Icon name={iconName} color={color} size={size} style={styles.icon} />;
+  return <Image source={iconName} style={styles.icon} />;
 };
 
 // Main Home Screen with Bottom Tabs
@@ -52,8 +62,8 @@ const MainTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
-        tabBarIcon: ({color, size}) => (
-          <CustomTabIcon route={route} color={color} size={size + 6} />
+        tabBarIcon: ({focused}) => (
+          <CustomTabIcon route={route} focused={focused} />
         ),
         tabBarLabelStyle: styles.tabBarLabel,
         tabBarStyle: styles.tabBar,
@@ -144,6 +154,11 @@ const styles = StyleSheet.create({
   tabBar: {
     height: 80,
     paddingVertical: 10,
+    borderTopLeftRadius: 40, // Rounded top left corner
+    borderTopRightRadius: 40, // Rounded top right corner
+    overflow: 'hidden', // Ensures the corners are clipped to be rounded
+    backgroundColor: '#ffffff', // Ensure the background is solid to make the rounding visible
+    elevation: 20, // Add shadow/elevation to make the rounded tab bar more noticeable
   },
   tabBarLabel: {
     fontSize: 14, // Increased the font size of the label
@@ -151,6 +166,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', // Make the text bold
   },
   icon: {
+    width: 50, // Customize the size of the icons
+    height: 50,
     marginBottom: 6, // Adds padding below the icon, pushing the icon up
   },
 });
