@@ -12,6 +12,10 @@ const SplashScreen = ({navigation}) => {
   const [fadeAnim] = useState(new Animated.Value(1)); // Initial opacity for first fade-out
   const {width, height} = useWindowDimensions(); // Capture width and height from useWindowDimensions
 
+  // Calculate scaling factor based on a design width of 360 (or your specific design width)
+  const designWidth = 360; // Design width of the original screen
+  const scaleFactor = width / designWidth;
+
   useEffect(() => {
     // First phase: fade out after 2 seconds
     const timeout1 = setTimeout(() => {
@@ -39,14 +43,23 @@ const SplashScreen = ({navigation}) => {
     <View style={styles.container}>
       <Animated.View style={{opacity: fadeAnim}}>
         <View style={[styles.firstScreen, {paddingTop: height * 0.15}]}>
-          <Text style={styles.slogan}>당신의 탈모고민 끝날때까지</Text>
-          <Text style={styles.title}>탈모엔딩</Text>
+          <Text style={[styles.slogan, {fontSize: 25 * scaleFactor}]}>
+            당신의 탈모고민 끝날때까지
+          </Text>
+          <Text style={[styles.title, {fontSize: 50 * scaleFactor}]}>
+            탈모엔딩
+          </Text>
           <View style={[styles.logoContainer, {left: -width * 0.5}]}>
             <Image
               source={require('../../static/imgs/logo_symbol.png')}
               style={[
                 styles.logoSymbol,
-                {width: width * 1.2, height: width * 1.2}, // Adjusted size
+                {
+                  width: width * 1.2,
+                  height: width * 1.2,
+                  marginLeft: width * 0.08,
+                  marginBottom: height * 0.01,
+                }, // Adjusted size
               ]}
               resizeMode="cover"
             />
@@ -72,15 +85,13 @@ const styles = StyleSheet.create({
   },
   slogan: {
     color: '#003DA5',
-    fontSize: 20, // Increased from 18 to 20
-    fontFamily: 'SCDream9',
+    fontFamily: 'MICEGothicOTFBold', // Changed to MICE 고딕
     textAlign: 'center',
     marginTop: 10,
   },
   title: {
     color: '#003DA5',
-    fontSize: 32, // Increased from 30 to 32
-    fontFamily: 'SCDream9',
+    fontFamily: 'MICEGothicOTFBold', // Changed to MICE 고딕 Bold
     textAlign: 'center',
     marginTop: 5,
   },

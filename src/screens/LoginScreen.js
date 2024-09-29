@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -6,85 +7,330 @@ import {
   TouchableOpacity,
   Image,
   useWindowDimensions,
+  Dimensions,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import LinearGradient from 'react-native-linear-gradient';
+
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const LoginScreen = ({navigation}) => {
-  const {width, height} = useWindowDimensions();
+  // Proportional scaling based on the design width assumed to be 375px
+  const designWidth = 375;
+  const scaleFontSize = size => (size / designWidth) * screenWidth;
 
   return (
     <View style={styles.container}>
-      {/* App Logo */}
-      <View style={styles.logoContainer}>
-        <Image
-          source={require('../../static/imgs/logo_symbol.png')}
-          style={[styles.logoSymbol, {width: width * 0.2, height: width * 0.2}]}
-          resizeMode="contain"
-        />
-      </View>
-
-      {/* Blue Container with Text and Buttons */}
-      <LinearGradient
-        colors={['#003DA5', '#001E4F']} // Shifted towards darker blue
-        style={[styles.blueContainer, {width: width * 0.9, paddingBottom: 50}]}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 1}}>
-        <Text style={styles.slogan}>
-          당신의{'\n'}탈모고민{'\n'}끝날때까지
-        </Text>
-        <TouchableOpacity
-          style={[styles.loginButton, styles.kakaoButton, {width: '100%'}]} // Set button width to 100% of the container
-          onPress={() => navigation.navigate('MainTabs')}>
-          <Image
-            source={require('../../static/icons/kakao_login.png')}
-            style={styles.loginIcon}
-          />
-          <Text style={[styles.loginText, {textAlign: 'center', flex: 1}]}>
-            카카오톡으로 로그인
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.loginButton, styles.naverButton, {width: '100%'}]} // Set button width to 100% of the container
-          onPress={() => console.log('Naver pressed')}>
-          <Image
-            source={require('../../static/icons/naver_login.png')}
-            style={styles.loginIcon}
-          />
-          <Text style={[styles.loginText, {textAlign: 'center', flex: 1}]}>
-            네이버로 로그인
-          </Text>
-        </TouchableOpacity>
-      </LinearGradient>
-
-      {/* Separator Line */}
-      <View style={styles.separatorLine} />
-
-      {/* Other Login Methods */}
-      <View style={[styles.otherLoginContainer, {marginBottom: height * 0.05}]}>
-        <Text style={styles.otherLoginText}>다른 방법으로 로그인</Text>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity style={styles.iconButton}>
-            <Icon name="logo-apple" size={35} color="#000000" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Icon name="logo-google" size={35} color="#000000" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Icon name="mail-outline" size={35} color="#000000" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Forgot Password Section */}
+      {/* empty space - on the far left side of the screen */}
+      <View style={{width: screenWidth * 0.024, height: screenHeight}} />
+      {/* main container */}
       <View
-        style={[styles.forgotPasswordContainer, {marginBottom: height * 0.1}]}>
-        <TouchableOpacity onPress={() => console.log('Forgot account pressed')}>
-          <Text style={styles.forgotPasswordText}>
+        style={{
+          width: screenWidth * 0.952,
+          height: screenHeight,
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}>
+        {/* empty space - right above the logo */}
+        <View style={{width: '100%', height: screenHeight * (101 / 1421)}} />
+        {/* logo section */}
+        <View
+          style={{
+            width: '100%',
+            height: '6.333%',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+          }}>
+          {/* logo image */}
+          <Image
+            source={require('../../static/imgs/logo_symbol.png')}
+            style={{
+              height: '120%',
+              width: '20%',
+              marginLeft: '3.645%',
+            }}
+            resizeMode="contain"
+          />
+        </View>
+        {/* empty space - right underneath the logo */}
+        <View style={{width: '100%', height: screenHeight * (50 / 1421)}} />
+        {/* blue container section itself */}
+        <View
+          style={{
+            width: '100%',
+            height: screenHeight * (622 / 1421),
+            backgroundColor: '#003DA5',
+            borderTopLeftRadius: 35,
+            borderTopRightRadius: 35,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            flexDirection: 'row',
+          }}>
+          {/* empty space - far left side of the blue container */}
+          <View style={{height: '100%', width: '3.94944705%'}} />
+          {/* inside main blue container */}
+          <View
+            style={{
+              height: '100%',
+              width: '92.10110585%',
+              flexDirection: 'column',
+            }}>
+            {/* empty space - right above the slogan text area */}
+            <View style={{width: '100%', height: '19.26163724%'}} />
+            {/* slogan text area */}
+            <View
+              style={{
+                width: '100%',
+                height: '24.07704655%',
+                flexDirection: 'column',
+              }}>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'flex-start',
+                  marginLeft: '3.6144%',
+                }}>
+                <Text
+                  style={{
+                    color: '#F5F5F5',
+                    fontSize: 50,
+                    textAlignVertical: 'center',
+                    fontFamily: 'MICEGothicOTFBold',
+                  }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit>
+                  당신의
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'flex-start',
+                  marginLeft: '3.6144%',
+                }}>
+                <Text
+                  style={{
+                    color: '#F5F5F5',
+                    fontSize: 50,
+                    textAlignVertical: 'center',
+                    fontFamily: 'MICEGothicOTFBold',
+                  }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit>
+                  탈모고민
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'flex-start',
+                  marginLeft: '3.6144%',
+                }}>
+                <Text
+                  style={{
+                    color: '#F5F5F5',
+                    fontSize: 50,
+                    textAlignVertical: 'center',
+                    fontFamily: 'MICEGothicOTFBold',
+                  }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit>
+                  끝날때까지
+                </Text>
+              </View>
+            </View>
+            {/* empty space - right underneath the slogan text area */}
+            <View style={{width: '100%', height: '4.3548%'}} />
+            {/* kakao login area */}
+            <View
+              style={{
+                width: '100%',
+                height: '18.7096%',
+                backgroundColor: '#F5F5F5',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderTopLeftRadius: 35,
+                borderTopRightRadius: 35,
+                borderBottomLeftRadius: 35,
+                borderBottomRightRadius: 35,
+              }}>
+              <View
+                style={{
+                  position: 'absolute',
+                  height: '75%',
+                  width: '15%',
+                  // backgroundColor: 'red',
+                  left: '2%',
+                  alignItems: 'flex-start',
+                }}>
+                <Image
+                  source={require('../../static/icons/kakao_login.png')}
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
+              <View
+                style={{
+                  height: '40.513%',
+                  width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#2E2E2E',
+                    fontSize: 200,
+                    textAlignVertical: 'center',
+                    fontFamily: 'MICEGothicOTF',
+                  }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit>
+                  카카오톡으로 로그인
+                </Text>
+              </View>
+            </View>
+            {/* empty space - right underneath kakao login button */}
+            <View style={{width: '100%', height: '3.8709%'}} />
+            {/* naver login area */}
+            <View
+              style={{
+                width: '100%',
+                height: '18.7096%',
+                backgroundColor: '#F5F5F5',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderTopLeftRadius: 35,
+                borderTopRightRadius: 35,
+                borderBottomLeftRadius: 35,
+                borderBottomRightRadius: 35,
+              }}>
+              <View
+                style={{
+                  position: 'absolute',
+                  height: '75%',
+                  width: '15%',
+                  // backgroundColor: 'red',
+                  left: '2%',
+                  alignItems: 'flex-start',
+                }}>
+                <Image
+                  source={require('../../static/icons/naver_login.png')}
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                  }}
+                  resizeMode="contain"
+                />
+              </View>
+              <View
+                style={{
+                  height: '40.513%',
+                  width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#2E2E2E',
+                    fontSize: 200,
+                    textAlignVertical: 'center',
+                    fontFamily: 'MICEGothicOTF',
+                  }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit>
+                  네이버로 로그인
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        {/* empty space - right underneath the entire blue container section */}
+        <View style={{height: '8.304%', width: '100%'}} />
+        {/* alternative login method text */}
+        <View
+          style={{
+            width: '100%',
+            height: '2%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              color: '#2E2E2E',
+              fontSize: 40,
+              textAlignVertical: 'center',
+              fontFamily: 'MICEGothicOTF',
+            }}
+            numberOfLines={1}
+            adjustsFontSizeToFit>
+            다른 방법으로 로그인
+          </Text>
+        </View>
+        {/* empty space - right underneath the alternatie login text */}
+        <View style={{height: '2%', width: '100%'}} />
+        {/* alternative login icons */}
+        <View
+          style={{
+            width: '50%',
+            height: '6.333%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          {/* apple login image */}
+          <Image
+            source={require('../../static/icons/apple_login.png')}
+            style={{
+              height: screenHeight * (86 / 1421),
+              width: screenHeight * (86 / 1421),
+            }}
+            resizeMode="contain"
+          />
+          {/* google login image */}
+          <Image
+            source={require('../../static/icons/google_login.png')}
+            style={{
+              height: screenHeight * (86 / 1421),
+              width: screenHeight * (86 / 1421),
+            }}
+            resizeMode="contain"
+          />
+          {/* email login image */}
+          <Image
+            source={require('../../static/icons/email_login.png')}
+            style={{
+              height: screenHeight * (86 / 1421),
+              width: screenHeight * (86 / 1421),
+            }}
+            resizeMode="contain"
+          />
+        </View>
+        {/* empty space - right underneath alternative login icons */}
+        <View style={{height: '13.793%', width: '100%'}} />
+        <View
+          style={{
+            width: '100%',
+            height: '2%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              color: '#2E2E2E',
+              fontSize: 40,
+              textAlignVertical: 'center',
+              fontFamily: 'MICEGothicOTF',
+              textDecorationLine: 'underline',
+            }}
+            numberOfLines={1}
+            adjustsFontSizeToFit>
             가입한 계정을 잊으셨다면?
           </Text>
-        </TouchableOpacity>
+        </View>
       </View>
+      {/* empty space - far right of the entire screen */}
+      <View style={{width: screenWidth * 0.024, height: screenHeight}} />
     </View>
   );
 };
@@ -92,8 +338,8 @@ const LoginScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5', // Off-white background color
-    justifyContent: 'space-between',
+    backgroundColor: '#F5F5F5', // Overall background color
+    flexDirection: 'row',
   },
   logoContainer: {
     alignItems: 'flex-start',
@@ -101,44 +347,30 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   logoSymbol: {
-    // Width and height dynamically adjusted based on screen size
+    // Dynamic sizing based on screen width
   },
   blueContainer: {
-    paddingVertical: 30,
+    paddingVertical: 20,
     paddingHorizontal: 20,
-    borderTopLeftRadius: 40, // Rounded top corners
-    borderTopRightRadius: 40, // Rounded top corners
-    borderBottomLeftRadius: 0, // Flat bottom
-    borderBottomRightRadius: 0, // Flat bottom
     alignSelf: 'center',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 15},
-    shadowOpacity: 0.8, // Increased shadow opacity
-    shadowRadius: 15, // Increased shadow radius for a more noticeable effect
-    elevation: 15,
+    backgroundColor: '#003DA5',
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   slogan: {
-    fontSize: 32, // Increased font size for the text
-    fontFamily: 'SCDream9', // Use SCDream9 for bold text
+    fontFamily: 'MICEGothicOTFBold',
     color: '#FFFFFF',
-    textAlign: 'left', // Left-aligned text
-    marginBottom: 20,
   },
   loginButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start', // Align text and icon to the left within the button
-    paddingVertical: 15,
-    paddingHorizontal: 20, // Reduced padding for better alignment
+    justifyContent: 'center', // Center text within the button
+    paddingVertical: 12,
+    paddingHorizontal: 20,
     borderRadius: 25,
-    marginBottom: 15,
-    width: '100%', // Increased width to fill more space within the container
-  },
-  kakaoButton: {
-    backgroundColor: '#FEE500', // Ensuring background color for Kakao login button
-  },
-  naverButton: {
-    backgroundColor: '#2DB400', // Ensuring background color for Naver login button
+    marginBottom: 10,
   },
   loginIcon: {
     width: 24,
@@ -146,11 +378,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   loginText: {
-    fontSize: 16,
-    fontFamily: 'SCDream6', // Use SCDream6 for regular bold text
-    color: '#000000', // Use black text for better contrast
-    flex: 1, // Ensure text takes up remaining space
-    textAlign: 'center', // Center the text within the remaining space
+    fontFamily: 'MICEGothicOTFBold',
+    flex: 1,
   },
   separatorLine: {
     borderBottomColor: '#E0E0E0',
@@ -162,29 +391,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   otherLoginText: {
-    fontSize: 14,
-    fontFamily: 'SCDream5', // Use SCDream5 for smaller text
-    color: '#666666', // A darker shade for better readability
+    fontFamily: 'MICEGothicOTFBold',
+    color: '#666666',
     marginBottom: 10,
   },
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '60%',
+    width: '50%', // More clustered
   },
   iconButton: {
     padding: 10,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: '#F5F5F5',
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  iconLarge: {
+    width: 40, // Larger icons
+    height: 40,
   },
   forgotPasswordContainer: {
     alignItems: 'center',
   },
   forgotPasswordText: {
-    fontSize: 12,
-    fontFamily: 'SCDream4', // Use SCDream4 for smaller, lighter text
+    fontFamily: 'MICEGothicOTF',
     color: '#999999',
     textDecorationLine: 'underline',
   },
