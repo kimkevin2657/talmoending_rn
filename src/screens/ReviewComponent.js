@@ -47,6 +47,9 @@ export default function ReviewComponent() {
     ...reviews,
     ...reviews,
     ...reviews,
+    ...reviews,
+    ...reviews,
+    ...reviews,
   ]); // Duplicate data for infinite effect
   const sliderRef = useRef(null);
   const intervalRef = useRef(null);

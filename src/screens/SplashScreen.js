@@ -33,7 +33,7 @@ const SplashScreen = ({navigation}) => {
           navigation.replace('MainTabs');
         }
       });
-    }, 2000);
+    }, 4000);
 
     return () => {
       clearTimeout(timeout1);
@@ -44,13 +44,13 @@ const SplashScreen = ({navigation}) => {
     <View style={styles.container}>
       <Animated.View style={{opacity: fadeAnim}}>
         <View style={[styles.firstScreen, {paddingTop: height * 0.15}]}>
-          <Text style={[styles.slogan, {fontSize: 25 * scaleFactor}]}>
+          <Text style={[styles.slogan, {fontSize: 18 * scaleFactor}]}>
             당신의 탈모고민 끝날때까지
           </Text>
-          <Text style={[styles.title, {fontSize: 50 * scaleFactor}]}>
+          <Text style={[styles.title, {fontSize: 60 * scaleFactor}]}>
             탈모엔딩
           </Text>
-          <View style={[styles.logoContainer, {left: -width * 0.5}]}>
+          <View style={[styles.logoContainer, {left: -width * 0.6}]}>
             <Image
               source={require('../../static/imgs/logo_symbol.png')}
               style={[
