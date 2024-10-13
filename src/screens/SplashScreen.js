@@ -29,7 +29,8 @@ const SplashScreen = ({navigation}) => {
         if (userIsLoggedIn) {
           navigation.replace('MainTabs');
         } else {
-          navigation.replace('LoginScreen');
+          // navigation.replace('LoginScreen');
+          navigation.replace('MainTabs');
         }
       });
     }, 2000);

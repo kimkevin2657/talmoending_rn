@@ -2,219 +2,350 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  Image,
+  useWindowDimensions,
+  Dimensions,
 } from 'react-native';
+import ReviewComponent from './ReviewComponent';
 
-const MainLandingScreen = () => {
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+
+const MainLandingScreen = ({navigation}) => {
+  // Proportional scaling based on the design width assumed to be 375px
+  const designWidth = 375;
+  const scaleFontSize = size => (size / designWidth) * screenWidth;
+
   return (
-    <ScrollView style={styles.container}>
-      {/* Top section with the text */}
-      <View style={styles.topSection}>
-        <Text style={styles.mainText}>
-          <Text style={styles.boldText}>서전초이</Text>님, 반가워요!
-        </Text>
-        <Text style={styles.largerText}>당신의 탈모고민 끝날때까지</Text>
-      </View>
-
-      {/* Blue container section */}
-      <View style={styles.blueContainer}>
-        {/* Image Section: Two images side by side */}
-        <View style={styles.imageRow}>
-          {/* Text on top of the images, brought to the front using zIndex */}
-          <Text style={styles.imageTitle}>모발이식 후</Text>
-          <Text style={styles.imageSubTitle}>
-            달라진 나의 모습이 궁금하다면?
-          </Text>
-          <Image
-            source={require('../../static/imgs/hair_before.png')}
-            style={styles.hairTransplantImage}
-          />
-          <Image
-            source={require('../../static/imgs/hair_after.png')}
-            style={styles.hairTransplantImage}
-          />
+    <View style={styles.container}>
+      {/* empty space - on the far left side of the screen */}
+      <View style={{width: screenWidth * 0.024, height: screenHeight}} />
+      {/* main container */}
+      <View
+        style={{
+          width: screenWidth * 0.952,
+          height: screenHeight,
+          alignItems: 'center',
+        }}>
+        {/* empty space - right above the username and slogan text */}
+        <View style={{width: '100%', height: '9.1666%'}} />
+        {/* username text and slogan text area */}
+        <View
+          style={{
+            width: '100%',
+            height: '6.5972%',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+          }}>
+          <View
+            style={{
+              width: '100%',
+              height: '46%',
+              flexDirection: 'row',
+              marginLeft: '8.22%',
+            }}>
+            <Text
+              style={{
+                color: '#2E2E2E',
+                fontSize: 50,
+                textAlignVertical: 'center',
+                fontFamily: 'MICEGothicOTFBold',
+              }}
+              numberOfLines={1}
+              adjustsFontSizeToFit>
+              서전초이
+            </Text>
+            <Text
+              style={{
+                color: '#2E2E2E',
+                fontSize: 18,
+                textAlignVertical: 'center',
+                fontFamily: 'MICEGothicOTFBold',
+              }}
+              numberOfLines={1}>
+              님, 반가워요!
+            </Text>
+          </View>
+          <View
+            style={{
+              width: '100%',
+              height: '54%',
+              justifyContent: 'row',
+              marginLeft: '8.22%',
+            }}>
+            <Text
+              style={{
+                color: '#2E2E2E',
+                fontSize: 120,
+                textAlignVertical: 'center',
+                fontFamily: 'MICEGothicOTF',
+              }}
+              numberOfLines={1}
+              adjustsFontSizeToFit>
+              당신의 탈모고민 끝날때까지
+            </Text>
+          </View>
         </View>
-
-        {/* Simulation Text */}
-        <Text style={styles.simulationText}>
-          가상이식으로 이식 디자인 구현부터{'\n'}예상 견적산출까지 한번에
-        </Text>
-
-        {/* Horizontal Testimonial Section */}
-        <ScrollView
-          horizontal
-          style={styles.testimonialSection}
-          showsHorizontalScrollIndicator={false}>
-          <View style={styles.testimonialBox}>
-            <Text style={styles.quoteMark}>“</Text>
-            <Text style={styles.testimonialQuote}>
-              모발이식하면 효과가 드라마틱하다고 해서 궁금했는데{'\n'}
-              이식 후의 내 모습을 바로 볼 수 있어서 좋았어요.
-            </Text>
-            <View style={styles.profileSection}>
-              <Image
-                source={require('../../static/imgs/profile_icon.png')}
-                style={styles.profileIcon}
-              />
-              <Text style={styles.reviewerInfo}>
-                M자 탈모가 심한 30대 회사원 K씨
+        {/* empty space - right above main blue container */}
+        <View style={{width: '100%', height: '3.125%'}} />
+        {/* blue container itself */}
+        <View
+          style={{
+            width: '100%',
+            height: '59.236%',
+            backgroundColor: '#003DA5',
+            borderTopLeftRadius: 35,
+            borderTopRightRadius: 35,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+          {/* empty space - right above before and after images inside the blue container */}
+          <View style={{width: '100%', height: '6.1104%'}} />
+          {/* before and after image section */}
+          <View
+            style={{
+              width: '76.7405%',
+              height: '38.19%',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            {/* slogan text on top of the before and after images */}
+            <View
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '30.841%',
+                top: 5,
+                zIndex: 2,
+              }}>
+              <View
+                style={{
+                  width: '100%',
+                  height: '60%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#F5F5F5',
+                    fontSize: 20,
+                    textAlignVertical: 'center',
+                    fontFamily: 'MICEGothicOTFBold',
+                  }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit>
+                  모발이식 후
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                  height: '40%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    color: '#F5F5F5',
+                    fontSize: 20,
+                    textAlignVertical: 'center',
+                    fontFamily: 'MICEGothicOTFBold',
+                  }}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit>
+                  달라진 나의 모습이 궁금하다면?
+                </Text>
+              </View>
+            </View>
+            <Image
+              source={require('../../static/imgs/hair_before.png')}
+              style={{
+                height: '100%',
+                width: '50%',
+                zIndex: 1,
+              }}
+              resizeMode="cover"
+            />
+            <Image
+              source={require('../../static/imgs/hair_after.png')}
+              style={{
+                height: '100%',
+                width: '50%',
+                zIndex: 1,
+              }}
+              resizeMode="cover"
+            />
+          </View>
+          {/* empty space - right underneath before and after images inside the blue container */}
+          <View style={{width: '100%', height: '1.411%'}} />
+          {/* instructional text right underneath before and after images inside the blue container */}
+          <View
+            style={{
+              width: '100%',
+              height: '8.223%',
+              flexDirection: 'column',
+            }}>
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text
+                style={{
+                  color: '#F5F5F5',
+                  fontSize: 20,
+                  textAlignVertical: 'center',
+                  fontFamily: 'MICEGothicOTF',
+                }}
+                numberOfLines={1}
+                adjustsFontSizeToFit>
+                가상이식으로 이식 디자인 구현부터
+              </Text>
+            </View>
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text
+                style={{
+                  color: '#F5F5F5',
+                  fontSize: 20,
+                  textAlignVertical: 'center',
+                  fontFamily: 'MICEGothicOTF',
+                }}
+                numberOfLines={1}
+                adjustsFontSizeToFit>
+                예상 견적산출까지 한번에
               </Text>
             </View>
           </View>
-          <View style={styles.testimonialBox}>
-            <Text style={styles.quoteMark}>“</Text>
-            <Text style={styles.testimonialQuote}>
-              회사 여자 대고 상담받으러 병원 갈 생각에 어색했는데{'\n'}
-              탈모인이 모여 하나로 해결할 수 있어서 좋았어요.
-            </Text>
-            <View style={styles.profileSection}>
-              <Image
-                source={require('../../static/imgs/profile_icon.png')}
-                style={styles.profileIcon}
-              />
-              <Text style={styles.reviewerInfo}>
-                탈모로 고민 중인 40대 직장인 S씨
-              </Text>
-            </View>
+          {/* empty space - right above the review carousel section inside the blue container */}
+          <View style={{width: '100%', height: '4.4705%'}} />
+          {/* review section carousel section */}
+          <View
+            style={{
+              width: '93.3545%',
+              // width: '100%',
+              height: '37.7647%',
+              backgroundColor: 'yellow',
+              // marginLeft: '6.6455%',
+            }}>
+            <ReviewComponent />
           </View>
-        </ScrollView>
+        </View>
+        {/* empty space - right underneath the blue container */}
+        <View style={{width: '100%', height: '1.411%'}} />
+        {/* start simulation button */}
+        <View
+          style={{
+            width: '85%',
+            height: '8%',
+            borderRadius: 35,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderWidth: 2,
+            borderColor: '#2E2E2E',
+          }}>
+          <Text
+            style={{
+              color: '#2E2E2E',
+              fontSize: 20,
+              textAlignVertical: 'center',
+              fontFamily: 'MICEGothicOTFBold',
+            }}
+            numberOfLines={1}
+            adjustsFontSizeToFit>
+            늦기전에 바로시작 →
+          </Text>
+        </View>
       </View>
-
-      {/* Bottom Button */}
-      <TouchableOpacity style={styles.startButton}>
-        <Text style={styles.startButtonText}>늦기전에 바로시작</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      {/* empty space - far right of the entire screen */}
+      <View style={{width: screenWidth * 0.024, height: screenHeight}} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#F5F5F5', // Overall background color
+    flexDirection: 'row',
   },
-  topSection: {
-    marginVertical: 10,
-    paddingHorizontal: 20, // Align flush with the blue container
+  logoContainer: {
+    alignItems: 'flex-start',
+    marginTop: 40,
+    paddingLeft: 20,
   },
-  mainText: {
-    fontSize: 16,
-    color: '#000', // Changed to black
-    textAlign: 'left',
-    marginBottom: 5,
-  },
-  boldText: {
-    fontSize: 20, // Slightly larger for "서전초이"
-    fontWeight: 'bold',
-  },
-  largerText: {
-    fontSize: 18, // Larger for "당신의 탈모고민 끝날때까지"
-    color: '#000',
-    textAlign: 'left',
+  logoSymbol: {
+    // Dynamic sizing based on screen width
   },
   blueContainer: {
-    backgroundColor: '#003DA5', // Dark blue background color
-    borderRadius: 15,
-    padding: 20,
-    margin: 20,
-    alignItems: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    backgroundColor: '#003DA5',
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
-  imageRow: {
-    flexDirection: 'row',
-    position: 'relative',
+  slogan: {
+    fontFamily: 'MICEGothicOTFBold',
+    color: '#FFFFFF',
   },
-  imageTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-    position: 'absolute', // Absolute positioning on top of images
-    top: 10,
-    left: '60%',
-    transform: [{translateX: -80}],
-    zIndex: 1, // Bring text to the front
-  },
-  imageSubTitle: {
-    fontSize: 18,
-    color: '#fff',
-    position: 'absolute',
-    top: 35,
-    left: '50%',
-    transform: [{translateX: -110}],
-    zIndex: 1, // Bring text to the front
-  },
-  hairTransplantImage: {
-    width: 160,
-    height: 160,
-    resizeMode: 'contain',
-    marginLeft: 0, // No gap between the images
-  },
-  simulationText: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: '#fff',
-    marginTop: 10,
-  },
-  testimonialSection: {
-    marginVertical: 20,
-  },
-  testimonialBox: {
-    backgroundColor: '#F0F0F0',
-    padding: 20,
-    borderRadius: 10,
-    marginHorizontal: 10,
-    width: 220, // Narrower width
-    height: 220, // Taller height
-    justifyContent: 'center', // Center content vertically
-  },
-  quoteMark: {
-    fontSize: 36,
-    position: 'absolute',
-    top: 10,
-    left: 15,
-    color: '#333',
-  },
-  testimonialQuote: {
-    fontSize: 14,
-    color: '#333',
-    lineHeight: 20,
-    textAlign: 'center',
-    padding: 10, // Add padding to center text more
-  },
-  profileSection: {
+  loginButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', // Center the profile section horizontally
-    marginTop: 10,
-    paddingHorizontal: 10, // Make the profile section narrower
+    justifyContent: 'center', // Center text within the button
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    marginBottom: 10,
   },
-  profileIcon: {
-    width: 40,
-    height: 40,
+  loginIcon: {
+    width: 24,
+    height: 24,
     marginRight: 10,
   },
-  reviewerInfo: {
-    fontSize: 12,
-    color: '#333',
-    flexWrap: 'wrap', // Ensure the text wraps correctly
-    maxWidth: 100, // Limit width so it wraps
+  loginText: {
+    fontFamily: 'MICEGothicOTFBold',
+    flex: 1,
   },
-  startButton: {
-    backgroundColor: '#ffffff',
-    paddingVertical: 10,
-    paddingHorizontal: 40,
-    alignSelf: 'center',
-    borderRadius: 30,
-    borderColor: '#D0D0D0',
-    borderWidth: 1,
+  separatorLine: {
+    borderBottomColor: '#E0E0E0',
+    borderBottomWidth: 1,
     marginVertical: 20,
+    marginHorizontal: 30,
   },
-  startButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
+  otherLoginContainer: {
+    alignItems: 'center',
+  },
+  otherLoginText: {
+    fontFamily: 'MICEGothicOTFBold',
+    color: '#666666',
+    marginBottom: 10,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '50%', // More clustered
+  },
+  iconButton: {
+    padding: 10,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconLarge: {
+    width: 40, // Larger icons
+    height: 40,
+  },
+  forgotPasswordContainer: {
+    alignItems: 'center',
+  },
+  forgotPasswordText: {
+    fontFamily: 'MICEGothicOTF',
+    color: '#999999',
+    textDecorationLine: 'underline',
   },
 });
 
