@@ -1,9 +1,15 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text, Image} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Dimensions,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 // Import Screens
 import SplashScreen from './src/screens/SplashScreen';
@@ -15,10 +21,12 @@ import SettingsScreen from './src/screens/SettingsScreen';
 import HospitalInfoScreen from './src/screens/HospitalInfoScreen';
 import CommunityScreen from './src/screens/CommunityScreen';
 import MyPageScreen from './src/screens/MyPageScreen';
+import SimulationGuide from './src/screens/SimulationGuide';
 
 // Create Stack and Tab Navigators
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 // Custom Tab Bar Icons
 const CustomTabIcon = ({route, focused}) => {
@@ -53,8 +61,11 @@ const CustomTabIcon = ({route, focused}) => {
     default:
       break;
   }
-
-  return <Image source={iconName} style={styles.icon} />;
+  if (iconName === 'HospitalInfo' || iconName === 'Community') {
+    return <Image source={iconName} style={styles.iconspecial} />;
+  } else {
+    return <Image source={iconName} style={styles.icon} />;
+  }
 };
 
 // Main Home Screen with Bottom Tabs
@@ -107,7 +118,7 @@ const MainTabs = () => {
         component={MyPageScreen}
         options={{
           headerShown: false,
-          tabBarLabel: '마이페이지',
+          tabBarLabel: '마이',
         }}
       />
     </Tab.Navigator>
@@ -119,7 +130,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="SplashScreen">
+        <Stack.Navigator initialRouteName="SimulationGuide">
           <Stack.Screen
             name="SplashScreen"
             component={SplashScreen}
@@ -140,6 +151,11 @@ const App = () => {
             component={MainTabs}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="SimulationGuide"
+            component={SimulationGuide}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
@@ -152,6 +168,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   tabBar: {
+    width: screenWidth * 0.97,
+    left: screenWidth * 0.015,
     height: 80,
     paddingVertical: 10,
     borderTopLeftRadius: 40, // Rounded top left corner
@@ -159,15 +177,28 @@ const styles = StyleSheet.create({
     overflow: 'hidden', // Ensures the corners are clipped to be rounded
     backgroundColor: '#ffffff', // Ensure the background is solid to make the rounding visible
     elevation: 20, // Add shadow/elevation to make the rounded tab bar more noticeable
+
+    // iOS Shadow
+    shadowColor: '#A0A0A0', // Darker shadow color (black)
+    shadowOffset: {width: 0, height: -5}, // Offset for the shadow
+    shadowOpacity: 0.25, // Increased shadow opacity to make it more visible
+    shadowRadius: 10, // Larger radius for a more diffused shadow
+    borderColor: '#A0A0A0',
+    borderWidth: 1,
   },
   tabBarLabel: {
     fontSize: 14, // Increased the font size of the label
-    paddingBottom: 6, // Adds padding below the text, pushing the text up
+    paddingBottom: 12, // Adds padding below the text, pushing the text up
     fontWeight: 'bold', // Make the text bold
   },
   icon: {
     width: 50, // Customize the size of the icons
     height: 50,
+    marginBottom: 6, // Adds padding below the icon, pushing the icon up
+  },
+  iconspecial: {
+    width: 10,
+    height: 10,
     marginBottom: 6, // Adds padding below the icon, pushing the icon up
   },
 });

@@ -33,7 +33,7 @@ const SplashScreen = ({navigation}) => {
           navigation.replace('MainTabs');
         }
       });
-    }, 4000);
+    }, 2000);
 
     return () => {
       clearTimeout(timeout1);
